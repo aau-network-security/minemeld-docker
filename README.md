@@ -1,10 +1,11 @@
 # minemeld-docker
 
-Unstable, go away.
-
 MineMeld inside a docker container.
 
 Based on phusion baseimage-docker, inspired by @swannysec and @bilalbox
+
+
+## with docker compose
 
 You still here ? Suggested way to run this docker:
 
@@ -12,14 +13,11 @@ You still here ? Suggested way to run this docker:
 docker-compose up
 ````
 
-Without docker-compose:
+## without docker-compose
+
+This commands creates a new MineMeld container, stores all the data and config
+in the directory /somewhere/minemeld/local and binds to port 8443:
 
 ````
-docker run -it --tmpfs /run -P jtschichold/minemeld
-````
-
-To backup data when docker-compose is not used:
-
-````
-docker run --rm --volumes-from d99227817617 -v $(pwd):/backup ubuntu:14.04 tar cvf /backup/backup.tar /opt/minemeld/local/config /opt/minemeld/local/data /opt/minemeld/local/trace /opt/minemeld/local/prototypes /opt/minemeld/local/trace
+docker run -it --tmpfs /run -v /somewhere/minemeld/local:/opt/minemeld/local -p 8443:443 jtschichold/minemeld
 ````
