@@ -44,6 +44,11 @@ if [ -f /opt/minemeld/local/library/freeze.txt ]; then
 	sudo -u minemeld xargs -a /opt/minemeld/local/library/freeze.txt -n1 -d'\n' /bin/bash -c 'echo "$0" && (/opt/minemeld/engine/current/bin/pip install -c /opt/minemeld/local/library/constraints.txt $0 || true)'
 fi
 
+if [ -f /opt/minemeld/engine/current/bin/mm-cacert-merge ]; then
+	echo "Regenarating CA bundle"
+	/opt/minemeld/engine/current/bin/mm-cacert-merge --config /opt/minemeld/local/certs/cacert-merge-config.yml --dst /opt/minemeld/local/certs/bundle.crt /opt/minemeld/local/certs/site/
+fi
+
 # copy default API config anyway
 cp /usr/share/minemeld/config/api/10-defaults.yml /opt/minemeld/local/config/api
 
