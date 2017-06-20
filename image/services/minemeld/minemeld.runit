@@ -35,6 +35,13 @@ if [ ! -f /opt/minemeld/local/config/committed-config.yml ] ; then
 	chown minemeld:minemeld -R /opt/minemeld/local/trace
 fi
 
+# check certs directory, this was added later
+if [ ! -d /opt/minemeld/local/certs/site ] ; then
+       mkdir -p /opt/minemeld/local/certs/site
+       touch /opt/minemeld/local/certs/cacert-merge-config.yml
+       chown minemeld:minemeld -R /opt/minemeld/local/certs
+fi
+
 echo "Copying constraints"
 cp /usr/share/minemeld/constraints.txt /opt/minemeld/local/library/
 chown minemeld:minemeld /opt/minemeld/local/library/constraints.txt
@@ -42,6 +49,11 @@ chown minemeld:minemeld /opt/minemeld/local/library/constraints.txt
 if [ -f /opt/minemeld/local/library/freeze.txt ]; then
 	echo "Reinstalling external extensions"
 	sudo -u minemeld xargs -a /opt/minemeld/local/library/freeze.txt -n1 -d'\n' /bin/bash -c 'echo "$0" && (/opt/minemeld/engine/current/bin/pip install -c /opt/minemeld/local/library/constraints.txt $0 || true)'
+fi
+
+if [ -f /opt/minemeld/engine/current/bin/mm-cacert-merge ]; then
+	echo "Regenarating CA bundle"
+	/opt/minemeld/engine/current/bin/mm-cacert-merge --config /opt/minemeld/local/certs/cacert-merge-config.yml --dst /opt/minemeld/local/certs/bundle.crt /opt/minemeld/local/certs/site/
 fi
 
 # copy default API config anyway
