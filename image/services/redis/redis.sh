@@ -12,3 +12,6 @@ cp $REDIS_BUILD_PATH/redis.runit /etc/service/redis/run
 
 ## Install logrotate.
 cp $REDIS_BUILD_PATH/logrotate_redis /etc/logrotate.d/redis
+
+## Override redis
+cp $REDIS_BUILD_PATH/redis.conf /etc/redis/redis.conf
