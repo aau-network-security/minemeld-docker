@@ -47,6 +47,10 @@ wget -qO - https://minemeld-updates.panw.io/gpg.key | sudo apt-key add -
 add-apt-repository "deb http://minemeld-updates.panw.io/ubuntu trusty-minemeld main"
 apt-get update
 
+# Install SQLite backport PPA
+add-apt-repository ppa:jonathonf/backports
+apt-get update
+
 ## Fix locale.
 $minimal_apt_get_install language-pack-en
 locale-gen en_US

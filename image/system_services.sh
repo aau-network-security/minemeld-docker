@@ -19,6 +19,9 @@ ln -s /etc/container_environment.sh /etc/profile.d/
 ## Install runit and logrotate
 $minimal_apt_get_install runit logrotate
 
+## Install SQLite
+$minimal_apt_get_install sqlite3
+
 ## Install a syslog daemon and logrotate.
 /bd_build/services/rsyslog/rsyslog.sh
 

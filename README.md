@@ -19,5 +19,5 @@ This commands creates a new MineMeld container, stores all the data and config
 in the directory /somewhere/minemeld/local and binds to port 8443:
 
 ````
-docker run -it --tmpfs /run -v /somewhere/minemeld/local:/opt/minemeld/local -p 8443:443 jtschichold/minemeld
+docker run -it --tmpfs /run -v /somewhere/minemeld/local:/opt/minemeld/local -p 8443:443 kidmose/minemeld
 ````
